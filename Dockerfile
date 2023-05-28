@@ -3,6 +3,9 @@ COPY src /app/src
 COPY pom.xml /app
 
 RUN mvn -f /app/pom.xml clean package -DskipTests
+RUN apk add freetype
+RUN apk add fontconfig ttf-dejavu
+
 FROM openjdk:17-alpine
 
 COPY --from=maven-builder app/target/Hakaton-0.0.1-SNAPSHOT.jar /app-service/Hakaton-0.0.1-SNAPSHOT.jar
