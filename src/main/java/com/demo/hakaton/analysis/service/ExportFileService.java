@@ -48,12 +48,6 @@ public class ExportFileService {
         headerStyle.setFillForegroundColor(IndexedColors.LIGHT_BLUE.getIndex());
         headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
 
-        var font = workbook.createFont();
-        font.setFontName("Arial");
-        font.setFontHeightInPoints((short) 16);
-        font.setBold(true);
-        headerStyle.setFont(font);
-
 
         writeData(allByFilter, sheet, headerStyle);
 
