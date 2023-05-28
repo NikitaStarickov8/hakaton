@@ -1,0 +1,24 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd"
+                   logicalFilePath="db/changelog/0000600_ADD_LINK_TABLE.xml">
+
+    <changeSet author="initial" id="DIAGNOSIS_EXAMINATION_LNK">
+        <createTable remarks="Диагноз на приеме" tableName="DIAGNOSIS_EXAMINATION_LNK">
+            <column name="ID" remarks="Идентификатор" type="BIGSERIAL">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="DIAGNOSIS_ID" remarks="ID Диагноза" type="BIGSERIAL">
+                <constraints foreignKeyName="DIAGNOSIS_ID" references="DIAGNOSIS(ID)"/>
+            </column>
+            <column name="EXAMINATION_DICTIONARY_ID" remarks="ID назначения" type="BIGSERIAL">
+                <constraints foreignKeyName="EXAMINATION_DICTIONARY_ID" references="EXAMINATION_DICTIONARY(ID)"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+
+</databaseChangeLog>
+
+

@@ -1,0 +1,28 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd"
+                   logicalFilePath="db/changelog/0000200_COMPARING_DB_PREPARE.xml">
+
+    <changeSet author="initial" id="COMPARING TABLE">
+        <createTable remarks="Связующая таблица кода группы болезни и кода группы исследований" tableName="COMPARING">
+            <column name="ID" remarks="Идентификатор" type="BIGSERIAL">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="SICKNESS_GROUP_CODE" remarks="Код группы болезни" type="INTEGER"/>
+            <column name="EXAMINATION_GROUP_CODE" remarks="Код группы исследования" type="INTEGER"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="initial" id="UPLOAD DATA COMPARING TABLE">
+        <loadUpdateData tableName="COMPARING" primaryKey="ID" encoding="UTF-8" separator=";" quotchar="&quot;"
+                        file="db/data/ComparingTable.csv">
+            <column header="ID" name="ID" type="STRING"/>
+            <column header="SICKNESS_GROUP_CODE" name="SICKNESS_GROUP_CODE" type="INTEGER"/>
+            <column header="EXAMINATION_GROUP_CODE" name="EXAMINATION_GROUP_CODE" type="INTEGER"/>
+        </loadUpdateData>
+    </changeSet>
+
+</databaseChangeLog>
+
+

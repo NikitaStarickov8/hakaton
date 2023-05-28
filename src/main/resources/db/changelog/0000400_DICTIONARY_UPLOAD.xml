@@ -1,0 +1,37 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd"
+                   logicalFilePath="db/changelog/0000200_COMPARING_DB_PREPARE.xml">
+
+    <changeSet author="initial" id="EXAMINATION_DICTIONARY">
+        <createTable remarks="Справочник кодов услуги + расшифровка" tableName="EXAMINATION_DICTIONARY">
+            <column name="ID" remarks="Идентификатор" type="BIGSERIAL">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="CODE" remarks="Код исследования" type="VARCHAR(15)"/>
+            <column name="NAME" remarks="Название исследования" type="VARCHAR(2000)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="initial" id="UPLOAD DATA EXAMINATION_DICTIONARY TABLE">
+        <loadUpdateData tableName="EXAMINATION_DICTIONARY" primaryKey="ID" encoding="UTF-8" separator=";" quotchar="&quot;"
+                        file="db/data/ExaminationDictionary.csv">
+            <column header="ID" name="ID" type="STRING"/>
+            <column header="CODE" name="CODE" type="STRING"/>
+            <column header="NAME" name="NAME" type="STRING"/>
+        </loadUpdateData>
+    </changeSet>
+
+
+    <changeSet author="initial" id="EXAMINATION_TO_DIAGNOSIS">
+        <addColumn tableName="DIAGNOSIS">
+            <column name="EXAMINATION_ID" remarks="Список назначений" type="BIGSERIAL []">
+                <constraints foreignKeyName="EXAMINATION_ID" references="EXAMINATION_DICTIONARY(ID)"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+</databaseChangeLog>
+
+

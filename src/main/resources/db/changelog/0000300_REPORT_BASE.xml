@@ -1,0 +1,45 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd"
+                   logicalFilePath="db/changelog/0000300_REPORT_BASE.xml">
+
+    <changeSet author="initial" id="DIAGNOSIS">
+        <createTable remarks="Диагноз на приеме" tableName="DIAGNOSIS">
+            <column name="ID" remarks="Идентификатор" type="BIGSERIAL">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="RECEIPT_DATE" remarks="Дата приема" type="DATETIME"/>
+            <column name="DOCTOR" remarks="Врач" type="VARCHAR(255)"/>
+            <column name="STATUS" remarks="Статус приема" type="VARCHAR(255)"/>
+            <column name="SICKNESS_ID" remarks="ID болезни" type="BIGSERIAL">
+                <constraints foreignKeyName="SICKNESS_ID" references="SICKNESS(ID)"/>
+            </column>
+        </createTable>
+
+    </changeSet>
+
+    <changeSet author="initial" id="PATIENT">
+        <createTable remarks="Пациент" tableName="PATIENT">
+            <column name="ID" remarks="Идентификатор" type="BIGSERIAL">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="EMIAS_ID" remarks="ID пациента в ЕМИАС" type="INTEGER">
+                <constraints unique="true"/>
+            </column>
+            <column name="BIRTH_DATE" remarks="Дата рождения" type="DATE"/>
+            <column name="SEX" remarks="Пол" type="VARCHAR(10)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="initial" id="PATIENT_TO_DIAGNOSIS">
+        <addColumn tableName="DIAGNOSIS">
+            <column name="PATIENT_ID" type="INTEGER">
+                <constraints foreignKeyName="PATIENT_EMIAS_ID" references="PATIENT(EMIAS_ID)"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+</databaseChangeLog>
+
+

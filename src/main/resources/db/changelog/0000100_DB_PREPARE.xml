@@ -1,0 +1,56 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd"
+                   logicalFilePath="db/changelog/0000100_DB_PREPARE.xml">
+
+    <changeSet author="initial" id="BASE TABLES">
+        <createTable remarks="Коды болезней + расшифровка" tableName="SICKNESS">
+            <column name="ID" remarks="Идентификатор" type="BIGSERIAL">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="CODE" remarks="Код по МКБ-10" type="VARCHAR2(15)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="COMPARING_GROUP" remarks="Код группы болезни" type="INTEGER">
+                <constraints foreignKeyName="COMPARING_GROUP"/>
+            </column>
+            <column name="NAME" remarks="Расшифровка кода МКБ-10" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable remarks="Коды исследований" tableName="MEDICAL_EXAMINATION_CODE">
+            <column name="ID" remarks="Идентификатор" type="BIGSERIAL">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="CODE" remarks="Код исследования" type="VARCHAR(15)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PRIORITY" remarks="Коэффициент обязательности исследования" type="DOUBLE"/>
+            <column name="COMPARING_GROUP" remarks="Код группы исследования" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="initial" id="UPLOAD DATA">
+        <loadUpdateData tableName="SICKNESS" primaryKey="ID" encoding="UTF-8" separator=";" quotchar="&quot;"
+                        file="db/data/Sicknesses.csv">
+            <column header="ID" name="ID" type="STRING"/>
+            <column header="CODE" name="CODE" type="STRING"/>
+            <column header="COMPARING_GROUP" name="COMPARING_GROUP" type="STRING"/>
+            <column header="NAME" name="NAME" type="STRING"/>
+        </loadUpdateData>
+
+        <loadUpdateData tableName="MEDICAL_EXAMINATION_CODE" primaryKey="ID" encoding="UTF-8" separator=";" quotchar="&quot;"
+                        file="db/data/MedicalExaminationCode.csv">
+            <column header="ID" name="ID" type="STRING"/>
+            <column header="CODE" name="CODE" type="STRING"/>
+            <column header="PRIORITY" name="PRIORITY" type="DOUBLE"/>
+            <column header="COMPARING_GROUP" name="COMPARING_GROUP" type="STRING"/>
+        </loadUpdateData>
+    </changeSet>
+
+
+</databaseChangeLog>

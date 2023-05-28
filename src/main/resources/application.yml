@@ -1,0 +1,40 @@
+spring:
+  freemarker:
+    check-template-location: false
+  servlet:
+    multipart:
+      enabled: true
+  datasource:
+    name: primaryDS
+    driver-class-name: ${DATABASE_DRIVER:org.postgresql.Driver}
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/postgres}
+    username: ${DATABASE_USER:postgres}
+    password: ${DATABASE_PASSWORD:postgres}
+  liquibase:
+    change-log: classpath:/db/db.changelog-master.xml
+    drop-first: false
+    contexts: local
+  cache:
+    type: None
+  jpa:
+    properties:
+      hibernate:
+        synonyms: true
+        default_batch_fetch_size: 100
+        order_updates: true
+        order_inserts: true
+        batch_versioned_data: true
+        batch_fetch_style: DYNAMIC
+        criteria:
+          literal_handling_mode: BIND
+        connection:
+          includeSynonyms: true
+          charSet: UTF-8
+        jdbc:
+          batch_size: 100
+  main:
+    allow-bean-definition-overriding: true
+    banner-mode: off
+  autoconfigure:
+    exclude[0]: org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
+    exclude[1]: org.springframework.boot.actuate.autoconfigure.security.servlet.ManagementWebSecurityAutoConfiguration
