@@ -7,9 +7,9 @@ spring:
   datasource:
     name: primaryDS
     driver-class-name: ${DATABASE_DRIVER:org.postgresql.Driver}
-    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/postgres}
-    username: ${DATABASE_USER:postgres}
-    password: ${DATABASE_PASSWORD:postgres}
+    url: ${DATABASE_URL:jdbc:postgresql://dpg-chpnbke7avjb90npfabg-a.frankfurt-postgres.render.com:5432/hakaton}
+    username: ${DATABASE_USER:hakaton}
+    password: ${DATABASE_PASSWORD:xoW5rvijy7VnvbRPlUuWLGzDZLINHCEI}
   liquibase:
     change-log: classpath:/db/db.changelog-master.xml
     drop-first: false
